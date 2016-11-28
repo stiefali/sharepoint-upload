@@ -1,8 +1,7 @@
 ﻿#How do use this script
 #Enter parameters in Param
 # $SiteUrl - the url for the sharpoint-side
-#            eg. http://share.dev.local/sites/<userName" for the local sharepoint-site
-#            http://sp2013.pmone.local/sites/apps     develop-machine
+#            eg. http://<server>/sites/<userName" for the local sharepoint-site
 # $File    - path to the Share.app (fullPath including file-name)
 # $DocLibName - Name of the sharepoint list where the file should be added to
 #               e.g "App Packages" for the local developer site
@@ -14,7 +13,7 @@
 PARAM
 (
 [Parameter(Mandatory=$true)]
-[string] $SiteURL = "http://share.dev.local/sites/<user>",
+[string] $SiteURL = "http://<server>/sites/<user>",
 [Parameter(Mandatory=$true)]
 [string] $File = "C:\development\<test>.app",
 [Parameter(Mandatory=$true)]
@@ -43,12 +42,6 @@ if ($Credentials)
 {
     $Context.Credentials = $Credentials
 }
-else
-{
-#Load Default Credentials
-    $Context.Credentials = [System.Net.NetworkCredential]::("USERNAME", (ConvertTo-SecureString "PASSWORD" -AsPlainText -force)) 
-}
-
 
 #Retrieve list
 $List = $Context.Web.Lists.GetByTitle($DocLibName)
